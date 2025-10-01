@@ -1,7 +1,7 @@
-package br.com.alura.comex.service;
+package br.com.alura.produto.service;
 
-import br.com.alura.comex.model.Produto;
-import br.com.alura.comex.repository.*;
+import br.com.alura.produto.model.Produto;
+import br.com.alura.produto.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

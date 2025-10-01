@@ -1,4 +1,4 @@
-package br.com.alura.comex.controller;
+package br.com.alura.produto.controller;
 
 import jakarta.validation.constraints.Positive;
 

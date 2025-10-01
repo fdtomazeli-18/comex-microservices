@@ -1,4 +1,4 @@
-package br.com.alura.comex.model;
+package br.com.alura.produto.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+
+import java.math.BigDecimal;
 
 @Entity
 public class Produto {
@@ -18,10 +20,21 @@ public class Produto {
 
     private String descricao;
 
-    private double preco;
+    private BigDecimal preco;
 
     @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Categoria categoria;
+
+    public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+    }
+
+    /** hibernate only */
+    public Produto() {
+    }
 
     public Long getId() {
         return id;
@@ -47,11 +60,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

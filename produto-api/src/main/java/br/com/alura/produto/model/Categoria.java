@@ -1,4 +1,4 @@
-package br.com.alura.comex.model;
+package br.com.alura.produto.model;
 
 import jakarta.persistence.*;
 

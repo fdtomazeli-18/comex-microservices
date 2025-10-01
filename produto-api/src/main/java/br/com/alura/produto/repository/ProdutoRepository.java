@@ -1,6 +1,6 @@
-package br.com.alura.comex.repository;
+package br.com.alura.produto.repository;
 
-import br.com.alura.comex.model.Produto;
+import br.com.alura.produto.model.Produto;
 
 import org.springframework.data.repository.CrudRepository;
 

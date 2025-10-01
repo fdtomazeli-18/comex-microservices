@@ -1,6 +1,6 @@
-package br.com.alura.comex.controller;
+package br.com.alura.produto.controller;
 
-import br.com.alura.comex.model.Categoria;
+import br.com.alura.produto.model.Categoria;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 

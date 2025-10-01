@@ -1,7 +1,7 @@
-package br.com.alura.comex.controller;
+package br.com.alura.produto.controller;
 
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.service.CategoriaService;
+import br.com.alura.produto.model.Categoria;
+import br.com.alura.produto.service.CategoriaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
