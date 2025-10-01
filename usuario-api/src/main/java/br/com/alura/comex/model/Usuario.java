@@ -1,6 +1,13 @@
 package br.com.alura.comex.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,36 +15,59 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity(name = "usuarios")
-public class Usuario implements UserDetails {
+
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "usuario")
+@EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
+public class Usuario implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login;
+
+    @NotBlank(message = "Email não pode ser nulo ou vazio")
+    @Email(message = "Email deve ter um formato válido")
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @NotBlank(message = "Senha não pode ser nula ou vazia")
+    @Column(nullable = false)
     private String senha;
 
-    public Usuario(String login, String senha) {
-        this.login = login;
-        this.senha = senha;
-    }
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
-    public Usuario() {
-    }
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+   @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public String getPassword() {
-        return senha;
+        return this.senha;
     }
 
     @Override
     public String getUsername() {
-        return login;
+        return this.email;
     }
 
     @Override
@@ -59,28 +89,4 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public String getLogin() {
-        return this.login;
-    }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 }
-
