@@ -20,21 +20,21 @@ public class TokenService {
 
     public String gerarToken(Usuario usuario) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            var algoritmo = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("API Comex")
-                    .withSubject(usuario.getEmail())
+                    .withSubject(usuario.getLogin())
                     .withExpiresAt(dataExpiracao())
-                    .sign(algorithm);
+                    .sign(algoritmo);
         } catch (JWTCreationException exception){
-            throw new RuntimeException("Erro ao gerar token jwt", exception);
+            throw new RuntimeException("erro ao gerar token jwt", exception);
         }
     }
 
     public String getSubject(String tokenJWT) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.require(algorithm)
+            var algoritmo = Algorithm.HMAC256(secret);
+            return JWT.require(algoritmo)
                     .withIssuer("API Comex")
                     .build()
                     .verify(tokenJWT)
@@ -45,6 +45,7 @@ public class TokenService {
     }
 
     private Instant dataExpiracao() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.of("-03:00"));
     }
+
 }
