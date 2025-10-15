@@ -1,5 +1,6 @@
 package br.com.alura.produto.controller;
 
+import br.com.alura.produto.events.CategoriaEventProducer;
 import br.com.alura.produto.model.Categoria;
 import br.com.alura.produto.service.CategoriaService;
 import jakarta.validation.Valid;
@@ -19,6 +20,9 @@ public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
 
+    @Autowired
+    private CategoriaEventProducer categoriaEventProducer;
+
     @PostMapping
     public ResponseEntity<Object> cadastra(@RequestBody @Valid RequestCategoriaDto request, BindingResult result){
 
@@ -29,6 +33,8 @@ public class CategoriaController {
 
         Categoria categoria = request.toCategoria();
         categoriaService.cadastrar(categoria);
+        
+        categoriaEventProducer.publishCategoriaCreated(categoria.getNome());
 
         return new ResponseEntity<>(categoria, HttpStatus.OK);
     }
